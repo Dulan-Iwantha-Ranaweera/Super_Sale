@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Theme tokens.
+ *
+ * Every surface, border and text colour in the app resolves through these
+ * variables, so switching theme is one class on <html> rather than a `dark:`
+ * variant on every element. Values are space-separated RGB channels because
+ * Tailwind composes them with its own alpha syntax (`bg-surface/60`).
+ */
+@layer base {
+  :root {
+    --app-bg: 241 245 249; /* slate-100 */
+    --surface: 255 255 255;
+    --surface-muted: 248 250 252; /* slate-50 */
+    --surface-sunken: 241 245 249; /* slate-100 */
+    --border: 226 232 240; /* slate-200 */
+    --border-strong: 203 213 225; /* slate-300 */
+    --text: 30 41 59; /* slate-800 */
+    --text-muted: 100 116 139; /* slate-500 */
+    --text-faint: 148 163 184; /* slate-400 */
+
+    --sidebar: 30 41 59; /* slate-800 */
+    --sidebar-hover: 51 65 85; /* slate-700 */
+    --sidebar-active: 51 65 85;
+
+    --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 3px 0 rgb(15 23 42 / 0.06);
+
+    color-scheme: light;
+  }
+
+  .dark {
+    --app-bg: 2 6 23; /* slate-950 */
+    --surface: 15 23 42; /* slate-900 */
+    --surface-muted: 30 41 59; /* slate-800 */
+    --surface-sunken: 2 6 23;
+    --border: 30 41 59; /* slate-800 */
+    --border-strong: 51 65 85; /* slate-700 */
+    --text: 226 232 240; /* slate-200 */
+    --text-muted: 148 163 184; /* slate-400 */
+    --text-faint: 100 116 139; /* slate-500 */
+
+    --sidebar: 15 23 42; /* slate-900 */
+    --sidebar-hover: 30 41 59;
+    --sidebar-active: 30 41 59;
+
+    /* Shadows read as noise on dark; a ring does the separating instead. */
+    --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 0 rgb(0 0 0 / 0.2);
+
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-app text-ink antialiased;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  /* Keep number inputs clean: the spinner arrows fight the compact table layout. */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  /* Native widgets (date pickers, select arrows) follow the theme. */
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: var(--picker-filter, none);
+  }
+
+  .dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.6);
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-ink-muted;
+  }
+
+  .field-input {
+    @apply w-full rounded-lg border border-edge-strong bg-surface px-3 py-2 text-sm text-ink
+      placeholder:text-ink-faint focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20
+      disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-ink-muted;
+  }
+
+  .table-header {
+    @apply whitespace-nowrap px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted;
+  }
+
+  .table-cell {
+    @apply whitespace-nowrap px-4 py-3 text-sm text-ink;
+  }
+}
+
+/* Thin, unobtrusive scrollbars inside scroll panes. */
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--border-strong));
+  border-radius: 9999px;
+}
+
+.scroll-slim::-webkit-scrollbar-track {
+  background-color: transparent;
+}
