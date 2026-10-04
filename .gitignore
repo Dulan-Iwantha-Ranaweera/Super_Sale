@@ -1,0 +1,19 @@
+# Python
+backend/.venv/
+__pycache__/
+*.py[cod]
+backend/.env
+
+# Trained ML artifacts (regenerate with POST /api/ipf/train)
+backend/models/
+
+# Node
+node_modules/
+frontend/dist/
+npm-debug.log*
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
